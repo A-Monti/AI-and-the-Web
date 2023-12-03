@@ -1,14 +1,49 @@
 <!DOCTYPE html>
-<html>
 <head>
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest"> -->
+    <style>
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+        ul {text-align: center;}
+        body {
+            background-image: url("https://static.vecteezy.com/system/resources/thumbnails/009/665/328/small/group-of-cute-cat-greeting-cartoon-png.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            background-position-y: bottom;
+            /* background-position-x: center; */
+            background-position-x: center;
+            background-color: bisque;
+        }        
+        img {align-self: center;}
+        li {align-self: center;}
+    </style>
     <title>Search Results</title>
 </head>
 <body>
-    <h1>Search Results for "{{ query }}"</h1>
-    <ul>
-        {% for result in results %}
-            <li><a href="{{ result }}">{{ result }}</a></li>
-        {% endfor %}
-    </ul>
+    <!-- <script type="text/javascript">
+        const audio = new Audio();
+        audio.src = "https://github.com/A-Monti/AI-and-the-Web/blob/main/Project_1/meow-1.mp3"
+    </script> -->
+    <img src="https://static.vecteezy.com/system/resources/previews/009/665/304/non_2x/cute-kitty-cat-head-cartoon-element-free-png.png"
+        width=200
+        height="auto"/>
+    <h1>Pawsplorer</h1>
+    <p>Search Results for "{{ query }}"</p>
+    <div class="search_form">
+        <form action="/search" method="get">
+            <input type="text" name="q" placeholder="Search..." required>
+            <input type="submit" value="Search">
+        </form>
+        <ul>
+            {% for result in results %}
+                <li><a href="{{ result }}">{{ result }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

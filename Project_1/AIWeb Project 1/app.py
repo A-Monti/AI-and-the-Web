@@ -19,7 +19,7 @@ def search(): #method for getting search query
 
         return render_template('search_results.html', query=query, results=results) #render search results template with query and results
     else:
-        return redirect(url_for('home')) #if no query provided - back to homepage
+        return render_template('no_result_found.html', query=query) #if no query provided - back to homepage
 
 if __name__ == '__main__': #run webapp (if executed)
     crawler.crawl() #run crawler

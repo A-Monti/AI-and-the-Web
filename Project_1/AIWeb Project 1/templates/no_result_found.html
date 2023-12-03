@@ -8,21 +8,19 @@
             background-image: url("https://static.vecteezy.com/system/resources/thumbnails/009/665/328/small/group-of-cute-cat-greeting-cartoon-png.png");
             background-repeat: no-repeat;
             background-attachment: fixed;
-            text-align: center;
-            background-position-y: bottom;
-            /* background-position-x: center; */
-            background-position-x: center;
-            background-color: bisque;
-        }        
+            background-size: cover;
+        }
         img {align-self: center;}
     </style>
-    <title>Search Engine</title>
+    <title>No results found</title>
 </head>
+
 <body>
     <img src="https://static.vecteezy.com/system/resources/previews/009/665/304/non_2x/cute-kitty-cat-head-cartoon-element-free-png.png"
-        width=200
-        height="auto"/>
+        width: 40px,
+        height: auto/>
     <h1>Pawsplorer</h1>
+    <p>Search Results for "{{ query }} not found. Please try again. "</p>
     <div class="search_form">
         <form action="/search" method="get">
             <input type="text" name="q" placeholder="Search..." required>
@@ -30,4 +28,3 @@
         </form>
     </div>
 </body>
-</html>
