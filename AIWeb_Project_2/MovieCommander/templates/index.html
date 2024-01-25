@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+</head>
+<body>
+    <h1>Welcome to Movie Recommendations</h1>
+    <p>Explore our movie collection and get personalized recommendations!</p>
+
+    <h2>Navigation</h2>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('ratings') }}">Ratings</a></li>
+            <li><a href="{{ url_for('recommendations') }}">Recommendations</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+        {% endif %}
+    </ul>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2>Movies</h2>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ movie.title }} - {{ movie.genres }}
+                {% if current_user.is_authenticated %}
+                    <span> - </span><a href="{{ url_for('rate', movie_id=movie.movie_id) }}">Rate</a>
+                    <span> - </span><a href="{{ url_for('get_content_based_recommendations', movie_id=movie.movie_id) }}">Recommendations</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

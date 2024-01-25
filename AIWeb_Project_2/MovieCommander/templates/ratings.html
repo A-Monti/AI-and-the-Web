@@ -1,0 +1,30 @@
+{% extends "flask_user_layout.html" %}
+{% block content %}
+    <h1>Rated Movies</h1>
+    <ul>
+        {% for m in ratings %}
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>{{ m.title }}</b></div>
+                <div class="panel-body" style="background-color: cadetblue;">
+                    <p>
+                        {% for g in m.genres %}
+                            <span class="label label-default">{{ g.genre }}</span>
+                        {% endfor %}
+                    </p>
+                    
+                    <hr />
+
+                    <b>
+                        &rarr; This movie is related to 
+                        {% for t in m.tags %}
+                            <span>{{ t.tag }}, </span>
+                        {% endfor %}
+                        under other tags
+                    </b>
+
+                </div>
+                <div class="panel-footer movie-rating"> Rated: {{m.rating}} Stars</div>
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}
