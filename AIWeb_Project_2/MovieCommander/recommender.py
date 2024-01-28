@@ -13,6 +13,8 @@ from read_data import check_and_read_data
 # import sleep from python
 from time import sleep
 
+import traceback
+
 # Class-based application configuration
 class ConfigClass(object):
     """ Flask application config """
@@ -47,6 +49,10 @@ user_manager = UserManager(app, db, User)  # initialize Flask-User management
 class RateMovieForm(FlaskForm):
     rating = FloatField('Rating', validators=[DataRequired(), NumberRange(min=0, max=5)])
     submit = SubmitField('Submit Rating')
+
+@app.errorhandler(500)
+def internal_error(exception):
+   return "<pre>"+traceback.format_exc()+"</pre>"
 
 @app.cli.command('initdb')
 def initdb_command():
@@ -111,7 +117,7 @@ def rate():
     db.session.add(rating)
     db.session.commit()
     print("Rate {} for {} by {}".format(rating.rating, movieid, userid))
-    return render_template("rated.html", rating=rating.rating)
+    return render_template('rated.html', rating=rating.rating)
 
 
 @app.route('/recommendations')
@@ -229,4 +235,7 @@ def recommend_movies_content_based(movie_id, top_n=10):
 
 # Start development web server
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    try:
+        app.run(port=5000, debug=True)
+    except ModuleNotFoundError:
+        pass
