@@ -4,6 +4,7 @@
 from flask import Flask, request, render_template, jsonify
 import json
 import requests
+import random as rd
 
 # Class-based application configuration
 class ConfigClass(object):
@@ -20,9 +21,12 @@ app.app_context().push()  # create an app context before initializing db
 HUB_URL = 'http://localhost:5555'
 HUB_AUTHKEY = '1234567890'
 CHANNEL_AUTHKEY = '0987654321'
-CHANNEL_NAME = "The One and Only Channel"
+CHANNEL_NAME = "Guess the Number Channel"
 CHANNEL_ENDPOINT = "http://localhost:5001" # don't forget to adjust in the bottom of the file
 CHANNEL_FILE = 'messages.json'
+MIN = 0
+MAX = 5
+NUMBER = rd.randint(MIN, MAX)
 
 @app.cli.command('register')
 def register_command():
@@ -85,6 +89,8 @@ def send_message():
     messages = read_messages()
     messages.append({'content':message['content'], 'sender':message['sender'], 'timestamp':message['timestamp']})
     save_messages(messages)
+    send_response(messages, message)
+    save_messages(messages)
     return "OK", 200
 
 def read_messages():
@@ -104,6 +110,32 @@ def save_messages(messages):
     global CHANNEL_FILE
     with open(CHANNEL_FILE, 'w') as f:
         json.dump(messages, f)
+
+def send_response(messages, message):
+    try:
+        int(message['content'])
+    except ValueError:
+        return messages.append({'content':'Introduce a number, please!', 'sender':'Bot', 'timestamp':message['timestamp']})
+    n = number_guessed(int(message['content']))
+
+    if n == True:
+        return messages.append({'content':'You guessed right!', 'sender':'Bot', 'timestamp':message['timestamp']})
+    if n == 'greater':
+        return messages.append({'content':'The number is greater', 'sender':'Bot', 'timestamp':message['timestamp']})
+    if n == 'lower':
+        return messages.append({'content':'The number is lower', 'sender':'Bot', 'timestamp':message['timestamp']})
+    return messages.append({'content':'Try again', 'sender':'Bot', 'timestamp':message['timestamp']})
+    
+def number_guessed(x):
+    global NUMBER, MIN, MAX
+    if NUMBER == x:
+        NUMBER = rd.randint(MIN, MAX)
+        return True
+    if NUMBER < x:
+        return 'lower'
+    if NUMBER > x:
+        return 'greater'
+    return False
 
 # Start development web server
 if __name__ == '__main__':
