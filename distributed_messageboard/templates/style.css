@@ -3,13 +3,13 @@
 }
 
 body {
-    background-color: aqua;
+    background-color: #ea825b;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #container{
-	width:750px;
-	height:800px;
+	width:50%;
+	height:1200px;
 	background:#eff3f7;
 	margin:0 auto;
 	font-size:0;
@@ -23,13 +23,13 @@ body {
 	list-style-type:none;
 	overflow-y:scroll;
 	height:535px;
-	border-top:2px solid #fff;
-	border-bottom:2px solid #fff;
+	border-top:2px solid #7fea9b;
+	border-bottom:2px solid #7fea9b;
 }
 
 #chat .message{
 	padding:20px;
-	color:#fff;
+	color:#def380;
 	line-height:25px;
 	max-width:90%;
 	display:inline-block;
@@ -45,7 +45,7 @@ main footer textarea{
 	resize:none;
 	border:none;
 	display:block;
-	width:100%;
+	width:25%;
 	height:80px;
 	border-radius:3px;
 	padding:20px;

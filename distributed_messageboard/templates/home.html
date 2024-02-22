@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>List of channels</title>
+    <link href="channel.html" rel="stylesheet">
+    <style>
+        body {background-color:  #ea825b ;}
+        p {text-align: center;}
+        b {text-align: center;}
+        h1 {text-align: center; color: white;}
+        h2 {text-align: center;}
+    </style>
 </head>
 <body>
 
@@ -10,7 +18,7 @@
 
 <ul>
     {% for channel in channels %}
-        <li><a href="/show?channel={{ channel.endpoint | urlencode }}">{{ channel.name }}</a></li>
+        <div id="main-div" class="with-margins" style="text-align: center;"><a href="/show?channel={{ channel.endpoint | urlencode }}">{{ channel.name }}</a></div>
     {% endfor %}
 </ul>
 

@@ -2,28 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Channel {{ channel.name }}</title>
+    <style>
+        p {text-align: center;}
+        b {text-align: center; text-emphasis: bold;}
+        h1 {text-align: center; color: white;}
+        h2 {text-align: center;}
+        body {background-color:  #7d1b02 ;}
+        hr { border-color: #ea825b; margin: 0; }
+        .no-margins { margin: 100px; }
+        .with-margins { margin: 1000px; }
+      </style>
+    <title style="text-align: center;">{{ channel.name }}</title>
+    <link href="channel.html" rel="stylesheet">
 </head>
 <body>
-<p>The distributed messenger. <a href="{{ url_for('home_page') }}">List of channels.</a> </p>
-{% if channel %}
-    <h1>Channel {{ channel.name }}</h1>
+    <div class="container">
+        <p>The distributed messenger. <a href="{{ url_for('home_page') }}">List of channels.</a> </p>
+        {% if channel %}
+        <h1>{{ channel.name }}</h1>
 
-        {% for message in messages %}
-            <h2>{{ message.sender }}</h2>
-            <p>{{ message.content }}</p>
-            <p style="font-size: 60%">{{ message.timestamp }}</p>
-        {% endfor %}
-{% else %}
-    <h1>Channel not found</h1>
-{% endif %}
+        <div class="panel panel-default" style="background-color: #ea825b; overflow-y: auto; height:400px;">
 
-<form action="post" method="post">
-    <input type="hidden" name="channel" value="{{ channel.endpoint | urlencode }}">
-    Message: <input type="text" name="content" id="content"> <br>
-    <input type="submit" value="Post">
-</form>
-
+            {% for message in messages %}
+                <div class="panel-heading" style="background-color: #7fea9b;"><b>{{ message.sender }}</b></div>
+                <div class="panel-body" style="background-color: #def380 ;">
+                    <tag>{{ message.content }}</tag>
+                    <p style="font-size: 60%">{{ message.timestamp }}</p>
+                </div>
+                <div class="panel-footer">
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>Channel not found</h1>
+        {% endif %}
+    </div>
+    <form action="post" method="post" style="text-align: center;">
+        <input type="hidden" name="channel" value="{{ channel.endpoint | urlencode }}">
+        Sender: <input type="text" name="sender" id="sender"> <br>
+        Message: <input type="text" name="content" id="content"> <br>
+        <input type="submit" value="Post">
+    </form>
 </body>
 </html>
